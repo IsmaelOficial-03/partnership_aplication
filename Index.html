@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeHosting - Centro de Postulaciones</title>
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --card-bg: #13151b;
+            --input-bg: #1c1f26;
+            --border-color: #2a2e39;
+            --text-color: #e1e1e6;
+            --text-muted: #8f9ba8;
+            --accent-color: #3b82f6;
+            --accent-hover: #2563eb;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 10px;
+        }
+
+        /* --- LOGO Y NAVEGACIÓN --- */
+        .brand-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .brand-logo {
+            max-width: 140px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .navbar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            background-color: var(--card-bg);
+            padding: 8px 12px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn.active, .nav-btn:hover {
+            background-color: var(--accent-color);
+            color: #ffffff;
+        }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .container {
+            width: 100%;
+            max-width: 750px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        .brand-title {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin: 8px 0;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            margin: 20px 0 15px 0;
+            color: var(--accent-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+            color: var(--text-muted);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 12px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-color);
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--accent-color);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 5px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--accent-color);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .btn-submit:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+
+        .status-msg {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .status-msg.success {
+            display: block;
+            background-color: rgba(16, 185, 129, 0.2);
+            border: 1px solid var(--success-color);
+            color: var(--success-color);
+        }
+
+        .status-msg.error {
+            display: block;
+            background-color: rgba(239, 68, 68, 0.2);
+            border: 1px solid var(--error-color);
+            color: var(--error-color);
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CABECERA PRINCIPAL CON LOGO DE LIFEHOSTING -->
+    <div class="brand-header">
+        <img src="https://i.imgur.com/u716CGi.png" alt="LifeHosting Logo" class="brand-logo">
+    </div>
+
+    <!-- MENÚ DE NAVEGACIÓN ENTRE SECCIONES -->
+    <nav class="navbar">
+        <button class="nav-btn active" onclick="switchTab('partnerTab', this)">🤝 Postulación Partner</button>
+        <button class="nav-btn" onclick="switchTab('staffTab', this)">🛡️ Postulación Staff</button>
+    </nav>
+
+    <div class="container">
+        
+        <!-- ==================== PESTAÑA: PARTNER ==================== -->
+        <div id="partnerTab" class="tab-content active">
+            <div class="header">
+                <div class="brand-title">LifeHosting</div>
+                <h1>Partnership Application</h1>
+                <p>Completa este formulario en detalle para poder evaluar si tu proyecto encaja con la visión de LifeHosting y brindarte nuestro apoyo institucional.</p>
+            </div>
+
+            <form id="partnerForm">
+                <div class="section-title">1. Información Personal</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="p_nombre">Nombre Completo *</label>
+                        <input type="text" id="p_nombre" placeholder="¿Cómo deberíamos llamarte?" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="p_edad">Tu Edad *</label>
+                        <input type="number" id="p_edad" placeholder="¿Cuántos años tienes?" required min="13">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="p_discordTag">Discord User / Tag *</label>
+                        <input type="text" id="p_discordTag" placeholder="Ej: usuario o usuario#0000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="p_discordID">Discord ID (Opcional)</label>
+                        <input type="text" id="p_discordID" placeholder="Tu ID numérico de Discord">
+                    </div>
+                </div>
+
+                <div class="section-title">2. Sobre tu Proyecto</div>
+                <div class="form-group">
+                    <label for="p_proyectoNombre">Nombre de la Organización / Proyecto *</label>
+                    <input type="text" id="p_proyectoNombre" placeholder="Nombre de la comunidad o proyecto" required>
+                </div>
+                <div class="form-group">
+                    <label for="p_redes">Enlaces y Redes Sociales *</label>
+                    <textarea id="p_redes" placeholder="Pega enlaces de tu canal de YouTube, Twitch, TikTok, Sitio web o servidor de Discord..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="p_descripcion">Cuéntanos sobre tu organización / comunidad *</label>
+                    <textarea id="p_descripcion" placeholder="¿Quiénes son? ¿En qué consiste su comunidad? Cuéntanos en detalle..." required></textarea>
+                </div>
+
+                <div class="section-title">3. Objetivos y Colaboración</div>
+                <div class="form-group">
+                    <label for="p_planInteres">Plan de Interés en LifeHosting *</label>
+                    <select id="p_planInteres" required>
+                        <option value="" disabled selected>Por favor, selecciona un servicio</option>
+                        <option value="Hosting Minecraft">Hosting Minecraft</option>
+                        <option value="Servidor VPS">Servidor VPS</option>
+                        <option value="Servidor Dedicado">Servidor Dedicado</option>
+                        <option value="Web Hosting">Web Hosting</option>
+                        <option value="Otro">Otro servicio</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>¿Estás buscando financiamiento completo para tu proyecto? *</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="p_financiamiento" value="Sí" required> Sí
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="p_financiamiento" value="No, solo buscando descuento"> No, solo buscando un descuento
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="p_razonPartner">¿Por qué buscas ser partner de LifeHosting? *</label>
+                    <textarea id="p_razonPartner" placeholder="¿Qué te llamó la atención de nosotros? ¿Cómo nuestros servicios benefician a tu comunidad?" required></textarea>
+                </div>
+
+                <div class="section-title">4. Propuesta de Marketing</div>
+                <div class="form-group">
+                    <label for="p_propuestaMarketing">Canales y Estrategias de Promoción para LifeHosting *</label>
+                    <textarea id="p_propuestaMarketing" placeholder="Elabora una propuesta detallada: ¿Dónde nos promocionarás? Menciones en streams, banners, reseñas..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="p_infoAdicional">Información adicional que pueda ser relevante (Opcional)</label>
+                    <textarea id="p_infoAdicional" placeholder="Cualquier otra información que consideres útil para la evaluación."></textarea>
+                </div>
+
+                <button type="submit" id="p_submitBtn" class="btn-submit">Enviar Aplicación para Partner</button>
+                <div id="p_statusMsg" class="status-msg"></div>
+            </form>
+        </div>
+
+
+        <!-- ==================== PESTAÑA: STAFF ==================== -->
+        <div id="staffTab" class="tab-content">
+            <div class="header">
+                <div class="brand-title">LifeHosting</div>
+                <h1>Staff Application</h1>
+                <p>¿Quieres formar parte del equipo de soporte y administración de LifeHosting? Por favor completa la siguiente solicitud.</p>
+            </div>
+
+            <form id="staffForm">
+                <div class="section-title">1. Datos Personales</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="s_nombre">Nombre Completo *</label>
+                        <input type="text" id="s_nombre" placeholder="Tu nombre real" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="s_edad">Edad *</label>
+                        <input type="number" id="s_edad" placeholder="Tu edad" required min="15">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="s_discordTag">Discord User / Tag *</label>
+                        <input type="text" id="s_discordTag" placeholder="Ej: usuario" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="s_pais">País / Zona Horaria *</label>
+                        <input type="text" id="s_pais" placeholder="Ej: México (UTC-6)" required>
+                    </div>
+                </div>
+
+                <div class="section-title">2. Área de Postulación y Disponibilidad</div>
+                <div class="form-group">
+                    <label for="s_rango">Rol al que aplicas *</label>
+                    <select id="s_rango" required>
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="Soporte Técnico (Ticket System)">Soporte Técnico (Ticket System)</option>
+                        <option value="Moderador de Comunidad (Discord)">Moderador de Comunidad (Discord)</option>
+                        <option value="Atención al Cliente / Ventas">Atención al Cliente / Ventas</option>
+                        <option value="SysAdmin / Administrador de Servidores">SysAdmin / Administrador de Servidores</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="s_tiempo">¿Cuántas horas diarias le puedes dedicar al cargo? *</label>
+                    <input type="text" id="s_tiempo" placeholder="Ej: 4 a 6 horas diarias" required>
+                </div>
+
+                <div class="section-title">3. Experiencia y Preguntas</div>
+                <div class="form-group">
+                    <label for="s_experiencia">Experiencia previa en cargos similares *</label>
+                    <textarea id="s_experiencia" placeholder="¿Has trabajado en otros hostings o servidores grandes? Describe tus labores..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="s_motivacion">¿Por qué deseas unirte al Staff de LifeHosting? *</label>
+                    <textarea id="s_motivacion" placeholder="¿Qué te motiva a formar parte de nuestro equipo?" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="s_situacion">¿Cómo reaccionarías si un cliente está molesto por una caída del servicio? *</label>
+                    <textarea id="s_situacion" placeholder="Describe brevemente cómo manejarías la situación y la comunicación." required></textarea>
+                </div>
+
+                <button type="submit" id="s_submitBtn" class="btn-submit">Enviar Aplicación para Staff</button>
+                <div id="s_statusMsg" class="status-msg"></div>
+            </form>
+        </div>
+
+    </div>
+
+<script>
+    // Configuración de Webhooks (Puedes usar URLs diferentes si prefieres separar los canales)
+    const PARTNER_WEBHOOK_URL = 'https://discord.com/api/webhooks/1550904378767183952/-mYamfOzf391MHDgdOxmK7pHwrAJ6YGQXlkN-OwQmWinnCwaZDyQHw4QUmDUiFPy1p_J';
+    const STAFF_WEBHOOK_URL = 'https://discord.com/api/webhooks/1550904378767183952/-mYamfOzf391MHDgdOxmK7pHwrAJ6YGQXlkN-OwQmWinnCwaZDyQHw4QUmDUiFPy1p_J';
+
+    // Función para alternar pestañas
+    function switchTab(tabId, element) {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+        
+        document.getElementById(tabId).classList.add('active');
+        element.classList.add('active');
+    }
+
+    // FORMULARIO PARTNER
+    document.getElementById('partnerForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const submitBtn = document.getElementById('p_submitBtn');
+        const statusMsg = document.getElementById('p_statusMsg');
+
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Enviando postulación...';
+        statusMsg.className = 'status-msg';
+        statusMsg.style.display = 'none';
+
+        const payload = {
+            username: "LifeHosting - Partner System",
+            avatar_url: "https://i.imgur.com/u716CGi.png",
+            embeds: [
+                {
+                    title: "🚀 Nueva Postulación para Partner",
+                    color: 3881718, // Azul
+                    fields: [
+                        { name: "👤 Nombre", value: document.getElementById('p_nombre').value, inline: true },
+                        { name: "🎂 Edad", value: document.getElementById('p_edad').value, inline: true },
+                        { name: "💬 Discord Tag / ID", value: `${document.getElementById('p_discordTag').value} (${document.getElementById('p_discordID').value || 'N/A'})`, inline: true },
+                        { name: "📌 Proyecto", value: document.getElementById('p_proyectoNombre').value, inline: false },
+                        { name: "🔗 Redes", value: document.getElementById('p_redes').value, inline: false },
+                        { name: "📖 Descripción", value: document.getElementById('p_descripcion').value, inline: false },
+                        { name: "🛠️ Servicio", value: document.getElementById('p_planInteres').value, inline: true },
+                        { name: "💰 Financiamiento Total", value: document.querySelector('input[name="p_financiamiento"]:checked')?.value || 'No especificado', inline: true },
+                        { name: "❓ ¿Por qué LifeHosting?", value: document.getElementById('p_razonPartner').value, inline: false },
+                        { name: "📢 Propuesta Marketing", value: document.getElementById('p_propuestaMarketing').value, inline: false },
+                        { name: "ℹ️ Info Adicional", value: document.getElementById('p_infoAdicional').value || 'Ninguna', inline: false }
+                    ],
+                    footer: { text: "LifeHosting Partner System" },
+                    timestamp: new Date().toISOString()
+                }
+            ]
+        };
+
+        sendToDiscord(PARTNER_WEBHOOK_URL, payload, submitBtn, statusMsg, 'partnerForm', 'Enviar Aplicación para Partner');
+    });
+
+    // FORMULARIO STAFF
+    document.getElementById('staffForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const submitBtn = document.getElementById('s_submitBtn');
+        const statusMsg = document.getElementById('s_statusMsg');
+
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Enviando postulación...';
+        statusMsg.className = 'status-msg';
+        statusMsg.style.display = 'none';
+
+        const payload = {
+            username: "LifeHosting - Staff System",
+            avatar_url: "https://i.imgur.com/u716CGi.png",
+            embeds: [
+                {
+                    title: "🛡️ Nueva Postulación para Staff",
+                    color: 15105570, // Dorado/Naranja
+                    fields: [
+                        { name: "👤 Nombre Real", value: document.getElementById('s_nombre').value, inline: true },
+                        { name: "🎂 Edad", value: document.getElementById('s_edad').value, inline: true },
+                        { name: "💬 Discord Tag", value: document.getElementById('s_discordTag').value, inline: true },
+                        { name: "🌍 País / Zona Horaria", value: document.getElementById('s_pais').value, inline: true },
+                        { name: "🛠️ Rol de Interés", value: document.getElementById('s_rango').value, inline: true },
+                        { name: "⏰ Tiempo Disponible", value: document.getElementById('s_tiempo').value, inline: true },
+                        { name: "📜 Experiencia Previa", value: document.getElementById('s_experiencia').value, inline: false },
+                        { name: "💡 Motivación", value: document.getElementById('s_motivacion').value, inline: false },
+                        { name: "🧩 Resolución de Conflictos", value: document.getElementById('s_situacion').value, inline: false }
+                    ],
+                    footer: { text: "LifeHosting Staff System" },
+                    timestamp: new Date().toISOString()
+                }
+            ]
+        };
+
+        sendToDiscord(STAFF_WEBHOOK_URL, payload, submitBtn, statusMsg, 'staffForm', 'Enviar Aplicación para Staff');
+    });
+
+    // FUNCIÓN DE ENVÍO COMÚN
+    async function sendToDiscord(url, payload, button, statusElement, formId, originalBtnText) {
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (response.ok || response.status === 204) {
+                statusElement.textContent = '¡Tu postulación ha sido enviada con éxito! El equipo la revisará pronto.';
+                statusElement.classList.add('success');
+                document.getElementById(formId).reset();
+            } else {
+                throw new Error('Error de envío');
+            }
+        } catch (error) {
+            console.error(error);
+            statusElement.textContent = 'Hubo un error al enviar el formulario. Verifica la conexión o la URL del Webhook.';
+            statusElement.classList.add('error');
+        } finally {
+            button.disabled = false;
+            button.innerText = originalBtnText;
+        }
+    }
+</script>
+
+</body>
+</html>
