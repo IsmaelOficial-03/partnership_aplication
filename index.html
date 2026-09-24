@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LifeHosting - Centro de Postulaciones</title>
+    <title>LifeHosting Applications</title>
+    <!-- Importación de fuente Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --bg-color: #0b0c10;
-            --card-bg: #13151b;
-            --input-bg: #1c1f26;
-            --border-color: #2a2e39;
-            --text-color: #e1e1e6;
-            --text-muted: #8f9ba8;
-            --accent-color: #3b82f6;
-            --accent-hover: #2563eb;
-            --success-color: #10b981;
+            --bg-color: #000000;          
+            --card-bg: #0b0d12;          
+            --input-bg: #12151d;         
+            --border-color: #1f2430;     
+            --text-color: #f1f3f5;
+            --text-muted: #8b95a5;
+            --accent-color: #2bab32;     /* Verde solicitado #2bab32 */
+            --accent-hover: #228b28;
+            --accent-gradient: linear-gradient(135deg, #2bab32 0%, #4ade80 100%);
+            --success-color: #2bab32;
             --error-color: #ef4444;
         }
 
@@ -22,116 +28,369 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
-            padding: 20px 10px;
         }
 
-        /* --- LOGO Y NAVEGACIÓN --- */
-        .brand-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .brand-logo {
-            max-width: 140px;
-            height: auto;
-            margin-bottom: 10px;
+        /* --- NAVBAR SUPERIOR --- */
+        .navbar-container {
+            width: 100%;
+            max-width: 1100px;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .navbar {
+            background-color: rgba(11, 13, 18, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
+            padding: 10px 24px;
             display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-            background-color: var(--card-bg);
-            padding: 8px 12px;
-            border-radius: 30px;
-            border: 1px solid var(--border-color);
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .nav-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            padding: 10px 20px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .nav-btn.active, .nav-btn:hover {
-            background-color: var(--accent-color);
-            color: #ffffff;
-        }
-
-        /* --- CONTENEDOR PRINCIPAL --- */
-        .container {
-            width: 100%;
-            max-width: 750px;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 25px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
-        }
-
-        .brand-title {
-            color: var(--accent-color);
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #fff;
             font-weight: 700;
-        }
-
-        .header h1 {
-            font-size: 1.8rem;
-            margin: 8px 0;
-        }
-
-        .header p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-
-        .section-title {
             font-size: 1.1rem;
-            margin: 20px 0 15px 0;
-            color: var(--accent-color);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 5px;
+            cursor: pointer;
+        }
+
+        .nav-brand img {
+            height: 28px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #fff;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* SELECTOR DE IDIOMA */
+        .lang-dropdown {
+            position: relative;
+        }
+
+        .lang-btn {
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
+        .lang-flag {
+            width: 20px;
+            height: 14px;
+            object-fit: cover;
+            border-radius: 2px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .lang-menu {
+            position: absolute;
+            top: 120%;
+            right: 0;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 6px;
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 140px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+        }
+
+        .lang-menu.show {
+            display: flex;
+        }
+
+        .lang-option {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .lang-option:hover {
+            background-color: var(--input-bg);
+            color: #fff;
+        }
+
+        .btn-community {
+            background: var(--accent-gradient);
+            color: #ffffff;
+            padding: 7px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .btn-community:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        /* --- CONTENEDOR VISTAS --- */
+        .main-content {
+            width: 100%;
+            max-width: 1000px;
+            padding: 40px 20px;
+            flex: 1;
+        }
+
+        .page-view {
+            display: none;
+        }
+
+        .page-view.active {
+            display: block;
+        }
+
+        /* --- VISTA: INICIO --- */
+        .hero {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+            background: var(--accent-gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .portal-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent-gradient);
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+
+        .portal-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(43, 171, 50, 0.4);
+            box-shadow: 0 10px 25px rgba(43, 171, 50, 0.15);
+        }
+
+        .portal-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 25px;
+        }
+
+        .card-action {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .portal-card:hover .card-action {
+            color: var(--accent-color);
+        }
+
+        /* --- VISTA: FORMULARIOS (ESTILO XEROHOST) --- */
+        .btn-back {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+        }
+
+        .btn-back:hover {
+            color: #fff;
+        }
+
+        .form-container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 35px;
+            max-width: 750px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .form-header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .form-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Títulos de sección con ícono y número de orden estilo captura */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 30px 0 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            color: #ffffff;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title-icon {
+            width: 24px;
+            height: 24px;
+            background-color: rgba(43, 171, 50, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+            font-size: 0.75rem;
+        }
+
+        .section-step {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .form-row {
@@ -143,10 +402,22 @@
             flex: 1;
         }
 
+        .label-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
         label {
             display: block;
             font-size: 0.85rem;
-            margin-bottom: 6px;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+
+        .char-counter {
+            font-size: 0.75rem;
             color: var(--text-muted);
         }
 
@@ -155,26 +426,28 @@
         select,
         textarea {
             width: 100%;
-            padding: 10px 12px;
+            padding: 12px 14px;
             background-color: var(--input-bg);
             border: 1px solid var(--border-color);
-            border-radius: 6px;
+            border-radius: 8px;
             color: var(--text-color);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             outline: none;
-            transition: border-color 0.2s;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
-        input[type="text"]:focus,
-        input[type="number"]:focus,
-        select:focus,
-        textarea:focus {
+        input::placeholder, textarea::placeholder {
+            color: #4b5563;
+        }
+
+        input:focus, select:focus, textarea:focus {
             border-color: var(--accent-color);
+            box-shadow: 0 0 8px rgba(43, 171, 50, 0.25);
         }
 
         textarea {
             resize: vertical;
-            min-height: 80px;
+            min-height: 100px;
         }
 
         .radio-group {
@@ -186,38 +459,50 @@
         .radio-option {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             cursor: pointer;
             font-size: 0.9rem;
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            padding: 10px 16px;
+            border-radius: 8px;
+            flex: 1;
+        }
+
+        .radio-option input {
+            accent-color: var(--accent-color);
         }
 
         .btn-submit {
             width: 100%;
-            padding: 12px;
-            background-color: var(--accent-color);
-            color: #fff;
+            padding: 14px;
+            background: var(--accent-gradient);
+            color: #ffffff;
             border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 600;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: background-color 0.2s;
-            margin-top: 20px;
+            transition: opacity 0.2s, transform 0.1s;
+            margin-top: 25px;
         }
 
         .btn-submit:hover {
-            background-color: var(--accent-hover);
+            opacity: 0.92;
+            transform: translateY(-1px);
         }
 
         .btn-submit:disabled {
-            background-color: #555;
+            background: #222;
+            color: #666;
             cursor: not-allowed;
+            transform: none;
         }
 
         .status-msg {
             margin-top: 15px;
-            padding: 10px;
-            border-radius: 6px;
+            padding: 12px;
+            border-radius: 8px;
             text-align: center;
             font-size: 0.9rem;
             display: none;
@@ -225,19 +510,23 @@
 
         .status-msg.success {
             display: block;
-            background-color: rgba(16, 185, 129, 0.2);
+            background-color: rgba(43, 171, 50, 0.15);
             border: 1px solid var(--success-color);
             color: var(--success-color);
         }
 
         .status-msg.error {
             display: block;
-            background-color: rgba(239, 68, 68, 0.2);
+            background-color: rgba(239, 68, 68, 0.15);
             border: 1px solid var(--error-color);
             color: var(--error-color);
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 650px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
             .form-row {
                 flex-direction: column;
             }
@@ -246,296 +535,541 @@
 </head>
 <body>
 
-    <!-- CABECERA PRINCIPAL CON LOGO DE LIFEHOSTING -->
-    <div class="brand-header">
-        <img src="https://i.imgur.com/u716CGi.png" alt="LifeHosting Logo" class="brand-logo">
-    </div>
+    <!-- NAVBAR SUPERIOR -->
+    <div class="navbar-container">
+        <nav class="navbar">
+            <a class="nav-brand" onclick="showPage('home')">
+                <img src="https://i.imgur.com/u716CGi.png" alt="LifeHosting">
+                <span>LifeHosting</span>
+            </a>
 
-    <!-- MENÚ DE NAVEGACIÓN ENTRE SECCIONES -->
-    <nav class="navbar">
-        <button class="nav-btn active" onclick="switchTab('partnerTab', this)">🤝 Postulación Partner</button>
-        <button class="nav-btn" onclick="switchTab('staffTab', this)">🛡️ Postulación Staff</button>
-    </nav>
-
-    <div class="container">
-        
-        <!-- ==================== PESTAÑA: PARTNER ==================== -->
-        <div id="partnerTab" class="tab-content active">
-            <div class="header">
-                <div class="brand-title">LifeHosting</div>
-                <h1>Partnership Application</h1>
-                <p>Completa este formulario en detalle para poder evaluar si tu proyecto encaja con la visión de LifeHosting y brindarte nuestro apoyo institucional.</p>
+            <div class="nav-links">
+                <a class="nav-link active" id="nav-home" onclick="showPage('home')" data-i18n="nav_home">Inicio</a>
+                <a class="nav-link" id="nav-partner" onclick="showPage('partner')" data-i18n="nav_partner">Partnership</a>
+                <a class="nav-link" id="nav-staff" onclick="showPage('staff')" data-i18n="nav_staff">Staff Apply</a>
             </div>
 
-            <form id="partnerForm">
-                <div class="section-title">1. Información Personal</div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="p_nombre">Nombre Completo *</label>
-                        <input type="text" id="p_nombre" placeholder="¿Cómo deberíamos llamarte?" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="p_edad">Tu Edad *</label>
-                        <input type="number" id="p_edad" placeholder="¿Cuántos años tienes?" required min="13">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="p_discordTag">Discord User / Tag *</label>
-                        <input type="text" id="p_discordTag" placeholder="Ej: usuario o usuario#0000" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="p_discordID">Discord ID (Opcional)</label>
-                        <input type="text" id="p_discordID" placeholder="Tu ID numérico de Discord">
+            <div class="nav-actions">
+                <!-- Selector de Idiomas -->
+                <div class="lang-dropdown">
+                    <button class="lang-btn" onclick="toggleLangMenu()" id="current-lang">
+                        <img src="español.png" alt="Español" class="lang-flag"> Español ▾
+                    </button>
+                    <div class="lang-menu" id="lang-menu">
+                        <button class="lang-option" onclick="selectLanguage('es')">
+                            <img src="español.png" alt="Español" class="lang-flag"> Español
+                        </button>
+                        <button class="lang-option" onclick="selectLanguage('en')">
+                            <img src="ingles.png" alt="English" class="lang-flag"> English
+                        </button>
+                        <button class="lang-option" onclick="selectLanguage('pt')">
+                            <img src="portugues.png" alt="Português" class="lang-flag"> Português
+                        </button>
                     </div>
                 </div>
+                <!-- Enlace de Discord actualizado -->
+                <a href="https://discord.gg/jSbYk5WMQq" target="_blank" class="btn-community" data-i18n="btn_community">Comunidad</a>
+            </div>
+        </nav>
+    </div>
 
-                <div class="section-title">2. Sobre tu Proyecto</div>
-                <div class="form-group">
-                    <label for="p_proyectoNombre">Nombre de la Organización / Proyecto *</label>
-                    <input type="text" id="p_proyectoNombre" placeholder="Nombre de la comunidad o proyecto" required>
-                </div>
-                <div class="form-group">
-                    <label for="p_redes">Enlaces y Redes Sociales *</label>
-                    <textarea id="p_redes" placeholder="Pega enlaces de tu canal de YouTube, Twitch, TikTok, Sitio web o servidor de Discord..." required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="p_descripcion">Cuéntanos sobre tu organización / comunidad *</label>
-                    <textarea id="p_descripcion" placeholder="¿Quiénes son? ¿En qué consiste su comunidad? Cuéntanos en detalle..." required></textarea>
-                </div>
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
 
-                <div class="section-title">3. Objetivos y Colaboración</div>
-                <div class="form-group">
-                    <label for="p_planInteres">Plan de Interés en LifeHosting *</label>
-                    <select id="p_planInteres" required>
-                        <option value="" disabled selected>Por favor, selecciona un servicio</option>
-                        <option value="Hosting Minecraft">Hosting Minecraft</option>
-                        <option value="Servidor VPS">Servidor VPS</option>
-                        <option value="Servidor Dedicado">Servidor Dedicado</option>
-                        <option value="Web Hosting">Web Hosting</option>
-                        <option value="Otro">Otro servicio</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>¿Estás buscando financiamiento completo para tu proyecto? *</label>
-                    <div class="radio-group">
-                        <label class="radio-option">
-                            <input type="radio" name="p_financiamiento" value="Sí" required> Sí
-                        </label>
-                        <label class="radio-option">
-                            <input type="radio" name="p_financiamiento" value="No, solo buscando descuento"> No, solo buscando un descuento
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="p_razonPartner">¿Por qué buscas ser partner de LifeHosting? *</label>
-                    <textarea id="p_razonPartner" placeholder="¿Qué te llamó la atención de nosotros? ¿Cómo nuestros servicios benefician a tu comunidad?" required></textarea>
-                </div>
-
-                <div class="section-title">4. Propuesta de Marketing</div>
-                <div class="form-group">
-                    <label for="p_propuestaMarketing">Canales y Estrategias de Promoción para LifeHosting *</label>
-                    <textarea id="p_propuestaMarketing" placeholder="Elabora una propuesta detallada: ¿Dónde nos promocionarás? Menciones en streams, banners, reseñas..." required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="p_infoAdicional">Información adicional que pueda ser relevante (Opcional)</label>
-                    <textarea id="p_infoAdicional" placeholder="Cualquier otra información que consideres útil para la evaluación."></textarea>
-                </div>
-
-                <button type="submit" id="p_submitBtn" class="btn-submit">Enviar Aplicación para Partner</button>
-                <div id="p_statusMsg" class="status-msg"></div>
-            </form>
-        </div>
-
-
-        <!-- ==================== PESTAÑA: STAFF ==================== -->
-        <div id="staffTab" class="tab-content">
-            <div class="header">
-                <div class="brand-title">LifeHosting</div>
-                <h1>Staff Application</h1>
-                <p>¿Quieres formar parte del equipo de soporte y administración de LifeHosting? Por favor completa la siguiente solicitud.</p>
+        <!-- ================= VISTA: HOME ================= -->
+        <div id="view-home" class="page-view active">
+            <div class="hero">
+                <h1 data-i18n="hero_title">LifeHosting Applications</h1>
+                <p data-i18n="hero_subtitle">Portal oficial de reclutamiento y colaboraciones. Selecciona el formulario adecuado para comenzar tu proceso con nuestro equipo.</p>
             </div>
 
-            <form id="staffForm">
-                <div class="section-title">1. Datos Personales</div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="s_nombre">Nombre Completo *</label>
-                        <input type="text" id="s_nombre" placeholder="Tu nombre real" required>
+            <div class="cards-grid">
+                <!-- Card Partner -->
+                <div class="portal-card" onclick="showPage('partner')">
+                    <div>
+                        <div class="card-icon">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        </div>
+                        <div class="card-title" data-i18n="card_partner_title">Partnership Application</div>
+                        <div class="card-desc" data-i18n="card_partner_desc">Únete a nuestro programa de partners y obtén beneficios exclusivos para tu comunidad o proyecto.</div>
                     </div>
-                    <div class="form-group">
-                        <label for="s_edad">Edad *</label>
-                        <input type="number" id="s_edad" placeholder="Tu edad" required min="15">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="s_discordTag">Discord User / Tag *</label>
-                        <input type="text" id="s_discordTag" placeholder="Ej: usuario" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="s_pais">País / Zona Horaria *</label>
-                        <input type="text" id="s_pais" placeholder="Ej: México (UTC-6)" required>
+                    <div class="card-action">
+                        <span data-i18n="card_partner_btn">Aplicar ahora</span> →
                     </div>
                 </div>
 
-                <div class="section-title">2. Área de Postulación y Disponibilidad</div>
-                <div class="form-group">
-                    <label for="s_rango">Rol al que aplicas *</label>
-                    <select id="s_rango" required>
-                        <option value="" disabled selected>Selecciona una opción</option>
-                        <option value="Soporte Técnico (Ticket System)">Soporte Técnico (Ticket System)</option>
-                        <option value="Moderador de Comunidad (Discord)">Moderador de Comunidad (Discord)</option>
-                        <option value="Atención al Cliente / Ventas">Atención al Cliente / Ventas</option>
-                        <option value="SysAdmin / Administrador de Servidores">SysAdmin / Administrador de Servidores</option>
-                    </select>
+                <!-- Card Staff -->
+                <div class="portal-card" onclick="showPage('staff')">
+                    <div>
+                        <div class="card-icon">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        </div>
+                        <div class="card-title" data-i18n="card_staff_title">Staff Application</div>
+                        <div class="card-desc" data-i18n="card_staff_desc">¿Tienes experiencia administrando servidores y quieres formar parte del equipo? Postúlate para unirte a LifeHosting.</div>
+                    </div>
+                    <div class="card-action">
+                        <span data-i18n="card_staff_btn">Postularse</span> →
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="s_tiempo">¿Cuántas horas diarias le puedes dedicar al cargo? *</label>
-                    <input type="text" id="s_tiempo" placeholder="Ej: 4 a 6 horas diarias" required>
-                </div>
-
-                <div class="section-title">3. Experiencia y Preguntas</div>
-                <div class="form-group">
-                    <label for="s_experiencia">Experiencia previa en cargos similares *</label>
-                    <textarea id="s_experiencia" placeholder="¿Has trabajado en otros hostings o servidores grandes? Describe tus labores..." required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="s_motivacion">¿Por qué deseas unirte al Staff de LifeHosting? *</label>
-                    <textarea id="s_motivacion" placeholder="¿Qué te motiva a formar parte de nuestro equipo?" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="s_situacion">¿Cómo reaccionarías si un cliente está molesto por una caída del servicio? *</label>
-                    <textarea id="s_situacion" placeholder="Describe brevemente cómo manejarías la situación y la comunicación." required></textarea>
-                </div>
-
-                <button type="submit" id="s_submitBtn" class="btn-submit">Enviar Aplicación para Staff</button>
-                <div id="s_statusMsg" class="status-msg"></div>
-            </form>
+            </div>
         </div>
 
-    </div>
+        <!-- ================= VISTA: PARTNER ================= -->
+        <div id="view-partner" class="page-view">
+            <button class="btn-back" onclick="showPage('home')">← <span data-i18n="btn_back">Volver al inicio</span></button>
+            <div class="form-container">
+                <div class="form-header">
+                    <h2 data-i18n="partner_form_title">Partnership Application</h2>
+                    <p data-i18n="partner_form_sub">Completa este formulario en detalle para evaluar tu propuesta de asociación.</p>
+                </div>
+
+                <form id="partnerForm">
+                    <div class="section-header">
+                        <div class="section-title">
+                            <span class="section-title-icon">i</span>
+                            <span data-i18n="sec_personal">Información Personal</span>
+                        </div>
+                        <span class="section-step">1 / 4</span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label data-i18n="lbl_name">Nombre Completo</label>
+                            <input type="text" id="p_nombre" placeholder="¿Cómo deberíamos llamarte?" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="lbl_age">Tu Edad</label>
+                            <input type="number" id="p_edad" placeholder="¿Cuántos años tienes?" required min="13">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label data-i18n="lbl_discord_tag">Discord ID</label>
+                            <input type="text" id="p_discordTag" placeholder="ejemplo: @usuario" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="lbl_discord_id">Nombre de usuario de Discord</label>
+                            <input type="text" id="p_discordID" placeholder="Tu nombre de usuario de Discord...">
+                        </div>
+                    </div>
+
+                    <div class="section-header">
+                        <div class="section-title">
+                            <span class="section-title-icon">📁</span>
+                            <span data-i18n="sec_project">Sobre tu Propuesta</span>
+                        </div>
+                        <span class="section-step">2 / 4</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="lbl_project_name">Nombre de la Organización / Proyecto</label>
+                        <input type="text" id="p_proyectoNombre" placeholder="Escribe el nombre del proyecto que representas" required>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="label-container">
+                            <label data-i18n="lbl_socials">Enlaces y Redes Sociales</label>
+                            <span class="char-counter">0 / 1000</span>
+                        </div>
+                        <textarea id="p_redes" placeholder="Pega enlaces de tu canal de YouTube, Twitch, TikTok, Sitio web o Discord aquí..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="label-container">
+                            <label data-i18n="lbl_project_desc">Cuéntanos sobre tu organización</label>
+                            <span class="char-counter">0 / 1000</span>
+                        </div>
+                        <textarea id="p_descripcion" placeholder="¿Quiénes son? ¿De qué trata tu comunidad? Cuéntanos su historia..." required></textarea>
+                    </div>
+
+                    <div class="section-header">
+                        <div class="section-title">
+                            <span class="section-title-icon">🎯</span>
+                            <span data-i18n="sec_goals">Objetivos y Colaboración</span>
+                        </div>
+                        <span class="section-step">3 / 4</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="lbl_service">Plan de Interés en LifeHosting</label>
+                        <select id="p_planInteres" required>
+                            <option value="" disabled selected>Por favor, selecciona</option>
+                            <option value="Hosting Minecraft">Minecraft Hosting</option>
+                            <option value="Servidor VPS">VPS Server</option>
+                            <option value="Servidor Dedicado">Dedicado / Dedicated</option>
+                            <option value="Web Hosting">Web Hosting</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="lbl_funding">¿Estás buscando financiamiento completo para tu proyecto?</label>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="p_fin" value="Sí" required> <span data-i18n="opt_yes">Sí</span></label>
+                            <label class="radio-option"><input type="radio" name="p_fin" value="No"> <span data-i18n="opt_no">No, solo buscando un descuento</span></label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="p_submitBtn" data-i18n="btn_submit_partner">Enviar Aplicación para Partner</button>
+                    <div id="p_statusMsg" class="status-msg"></div>
+                </form>
+            </div>
+        </div>
+
+        <!-- ================= VISTA: STAFF ================= -->
+        <div id="view-staff" class="page-view">
+            <button class="btn-back" onclick="showPage('home')">← <span data-i18n="btn_back">Volver al inicio</span></button>
+            <div class="form-container">
+                <div class="form-header">
+                    <h2 data-i18n="staff_form_title">Staff Application</h2>
+                    <p data-i18n="staff_form_sub">¿Te apasiona el hosting y ayudar a los demás? Buscamos talentos para unirse a nuestro equipo.</p>
+                </div>
+
+                <form id="staffForm">
+                    <div class="section-header">
+                        <div class="section-title">
+                            <span class="section-title-icon">i</span>
+                            <span data-i18n="sec_personal">Información Personal</span>
+                        </div>
+                        <span class="section-step">1 / 3</span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label data-i18n="lbl_name">Nombre Completo</label>
+                            <input type="text" id="s_nombre" placeholder="Tu nombre real" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="lbl_age">Tu Edad</label>
+                            <input type="number" id="s_edad" placeholder="¿Cuántos años tienes?" required min="15">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label data-i18n="lbl_discord_tag">Discord ID</label>
+                            <input type="text" id="s_discordTag" placeholder="ejemplo: @usuario" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="lbl_country">País / Zona Horaria</label>
+                            <input type="text" id="s_pais" placeholder="ejemplo: México (GMT-6)" required>
+                        </div>
+                    </div>
+
+                    <div class="section-header">
+                        <div class="section-title">
+                            <span class="section-title-icon">👤</span>
+                            <span data-i18n="sec_role">Experiencia y Perfil</span>
+                        </div>
+                        <span class="section-step">2 / 3</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="lbl_position">Puesto al que Aplicas</label>
+                        <select id="s_rango" required>
+                            <option value="" disabled selected>Selecciona un puesto</option>
+                            <option value="Soporte Técnico">Soporte Técnico</option>
+                            <option value="Moderador Discord">Moderador Discord</option>
+                            <option value="Atención al Cliente">Atención al Cliente</option>
+                            <option value="SysAdmin">SysAdmin</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="label-container">
+                            <label data-i18n="lbl_experience">Experiencia (Linux, Pterodactyl, etc.)</label>
+                            <span class="char-counter">0 / 1000</span>
+                        </div>
+                        <textarea id="s_experiencia" placeholder="Detalla tu experiencia manejando Servidores de Juegos, VPS, Linux, Pterodactyl..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-i18n="lbl_time">Disponibilidad de Tiempo</label>
+                        <input type="text" id="s_tiempo" placeholder="¿Cuántas horas al día/semana puedes brindar soporte?" required>
+                    </div>
+
+                    <div class="section-header">
+                        <div class="section-title">
+                            <span class="section-title-icon">⭐</span>
+                            <span data-i18n="sec_exp">Sobre tu Aplicación</span>
+                        </div>
+                        <span class="section-step">3 / 3</span>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="label-container">
+                            <label data-i18n="lbl_motivation">¿Por qué quieres unirte al equipo?</label>
+                            <span class="char-counter">0 / 1000</span>
+                        </div>
+                        <textarea id="s_motivacion" placeholder="Cuéntanos por qué deberíamos seleccionarte a ti..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="s_submitBtn" data-i18n="btn_submit_staff">Enviar Aplicación para Staff</button>
+                    <div id="s_statusMsg" class="status-msg"></div>
+                </form>
+            </div>
+        </div>
+
+    </main>
 
 <script>
-    // Configuración de Webhooks (Puedes usar URLs diferentes si prefieres separar los canales)
-    const PARTNER_WEBHOOK_URL = 'https://discord.com/api/webhooks/1550904378767183952/-mYamfOzf391MHDgdOxmK7pHwrAJ6YGQXlkN-OwQmWinnCwaZDyQHw4QUmDUiFPy1p_J';
-    const STAFF_WEBHOOK_URL = 'https://discord.com/api/webhooks/1550904378767183952/-mYamfOzf391MHDgdOxmK7pHwrAJ6YGQXlkN-OwQmWinnCwaZDyQHw4QUmDUiFPy1p_J';
+    // URL DEL WEBHOOK DE DISCORD
+    const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1550904378767183952/-mYamfOzf391MHDgdOxmK7pHwrAJ6YGQXlkN-OwQmWinnCwaZDyQHw4QUmDUiFPy1p_J';
 
-    // Función para alternar pestañas
-    function switchTab(tabId, element) {
-        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-        
-        document.getElementById(tabId).classList.add('active');
-        element.classList.add('active');
+    // DICCIONARIO DE IDIOMAS
+    const translations = {
+        es: {
+            nav_home: "Inicio",
+            nav_partner: "Partnership",
+            nav_staff: "Staff Apply",
+            btn_community: "Comunidad",
+            hero_title: "LifeHosting Applications",
+            hero_subtitle: "Portal oficial de reclutamiento y colaboraciones. Selecciona el formulario adecuado para comenzar tu proceso con nuestro equipo.",
+            card_partner_title: "Partnership Application",
+            card_partner_desc: "Únete a nuestro programa de partners y obtén beneficios exclusivos para tu comunidad o proyecto.",
+            card_partner_btn: "Aplicar ahora",
+            card_staff_title: "Staff Application",
+            card_staff_desc: "¿Tienes experiencia administrando servidores y quieres formar parte del equipo? Postúlate para unirte a LifeHosting.",
+            card_staff_btn: "Postularse",
+            btn_back: "Volver al inicio",
+            partner_form_title: "Partnership Application",
+            partner_form_sub: "Completa este formulario en detalle para evaluar tu propuesta de asociación.",
+            staff_form_title: "Staff Application",
+            staff_form_sub: "¿Te apasiona el hosting y ayudar a los demás? Buscamos talentos para unirse a nuestro equipo.",
+            sec_personal: "Información Personal",
+            sec_project: "Sobre tu Propuesta",
+            sec_goals: "Objetivos y Colaboración",
+            sec_role: "Experiencia y Perfil",
+            sec_exp: "Sobre tu Aplicación",
+            lbl_name: "Nombre Completo",
+            lbl_age: "Tu Edad",
+            lbl_discord_tag: "Discord ID",
+            lbl_discord_id: "Nombre de usuario de Discord",
+            lbl_project_name: "Nombre de la Organización / Proyecto",
+            lbl_socials: "Enlaces y Redes Sociales",
+            lbl_project_desc: "Cuéntanos sobre tu organización",
+            lbl_service: "Plan de Interés en LifeHosting",
+            lbl_funding: "¿Estás buscando financiamiento completo para tu proyecto?",
+            opt_yes: "Sí",
+            opt_no: "No, solo buscando un descuento",
+            lbl_country: "País / Zona Horaria",
+            lbl_position: "Puesto al que Aplicas",
+            lbl_time: "Disponibilidad de Tiempo",
+            lbl_experience: "Experiencia (Linux, Pterodactyl, etc.)",
+            lbl_motivation: "¿Por qué quieres unirte al equipo?",
+            btn_submit_partner: "Enviar Aplicación para Partner",
+            btn_submit_staff: "Enviar Aplicación para Staff",
+            msg_success: "¡Tu aplicación ha sido enviada con éxito!",
+            msg_error: "Hubo un error al enviar el formulario."
+        },
+        en: {
+            nav_home: "Home",
+            nav_partner: "Partnership",
+            nav_staff: "Staff Apply",
+            btn_community: "Community",
+            hero_title: "LifeHosting Applications",
+            hero_subtitle: "Official recruitment and partnership portal. Select the appropriate form to start your application process.",
+            card_partner_title: "Partnership Application",
+            card_partner_desc: "Join our partnership program and get exclusive benefits for your project.",
+            card_partner_btn: "Apply now",
+            card_staff_title: "Staff Application",
+            card_staff_desc: "Do you have server management experience and want to join our team? Apply here.",
+            card_staff_btn: "Apply for Staff",
+            btn_back: "Back to home",
+            partner_form_title: "Partnership Application",
+            partner_form_sub: "Fill out this form in detail for us to evaluate your project.",
+            staff_form_title: "Staff Application",
+            staff_form_sub: "Are you passionate about hosting and helping others? Join our staff.",
+            sec_personal: "Personal Information",
+            sec_project: "About your Proposal",
+            sec_goals: "Goals & Collaboration",
+            sec_role: "Experience & Profile",
+            sec_exp: "About your Application",
+            lbl_name: "Full Name",
+            lbl_age: "Age",
+            lbl_discord_tag: "Discord ID",
+            lbl_discord_id: "Discord Username",
+            lbl_project_name: "Organization / Project Name",
+            lbl_socials: "Social Media & Links",
+            lbl_project_desc: "Tell us about your organization",
+            lbl_service: "Service of Interest",
+            lbl_funding: "Looking for full sponsorship?",
+            opt_yes: "Yes",
+            opt_no: "No, discount only",
+            lbl_country: "Country / Timezone",
+            lbl_position: "Position Applying For",
+            lbl_time: "Time Availability",
+            lbl_experience: "Experience (Linux, Pterodactyl, etc.)",
+            lbl_motivation: "Why do you want to join?",
+            btn_submit_partner: "Submit Partner Application",
+            btn_submit_staff: "Submit Staff Application",
+            msg_success: "Your application has been successfully submitted!",
+            msg_error: "There was an error sending the form."
+        },
+        pt: {
+            nav_home: "Início",
+            nav_partner: "Partnership",
+            nav_staff: "Staff Apply",
+            btn_community: "Comunidade",
+            hero_title: "LifeHosting Applications",
+            hero_subtitle: "Portal oficial de recrutamento e parcerias. Selecione o formulário adequado para iniciar seu processo.",
+            card_partner_title: "Partnership Application",
+            card_partner_desc: "Junte-se ao nosso programa de parceiros e obtenha benefícios exclusivos.",
+            card_partner_btn: "Candidatar-se",
+            card_staff_title: "Staff Application",
+            card_staff_desc: "Tem experiência em administração de servidores? Candidate-se para a equipe.",
+            card_staff_btn: "Inscrever-se",
+            btn_back: "Voltar ao início",
+            partner_form_title: "Partnership Application",
+            partner_form_sub: "Preencha este formulário detalhadamente para avaliarmos seu projeto.",
+            staff_form_title: "Staff Application",
+            staff_form_sub: "Apaixonado por hosting e em ajudar os outros? Faça parte da equipe.",
+            sec_personal: "Informações Pessoais",
+            sec_project: "Sobre a sua Proposta",
+            sec_goals: "Objetivos e Colaboração",
+            sec_role: "Experiência e Perfil",
+            sec_exp: "Sobre a sua Candidatura",
+            lbl_name: "Nome Completo",
+            lbl_age: "Idade",
+            lbl_discord_tag: "Discord ID",
+            lbl_discord_id: "Nome de usuário do Discord",
+            lbl_project_name: "Nome da Organização / Projeto",
+            lbl_socials: "Redes e Links",
+            lbl_project_desc: "Fale sobre a sua organização",
+            lbl_service: "Serviço de Interesse",
+            lbl_funding: "Procura patrocínio total?",
+            opt_yes: "Sim",
+            opt_no: "Não, apenas desconto",
+            lbl_country: "País / Fuso Horário",
+            lbl_position: "Cargo Desejado",
+            lbl_time: "Disponibilidade de Tempo",
+            lbl_experience: "Experiência (Linux, Pterodactyl, etc.)",
+            lbl_motivation: "Por que deseja se juntar à equipe?",
+            btn_submit_partner: "Enviar Candidatura para Partner",
+            btn_submit_staff: "Enviar Candidatura para Staff",
+            msg_success: "Sua candidatura foi enviada com sucesso!",
+            msg_error: "Ocorreu um erro ao enviar o formulário."
+        }
+    };
+
+    let currentLang = 'es';
+
+    function toggleLangMenu() {
+        document.getElementById('lang-menu').classList.toggle('show');
     }
 
-    // FORMULARIO PARTNER
+    function selectLanguage(lang) {
+        currentLang = lang;
+        document.getElementById('lang-menu').classList.remove('show');
+
+        const langData = {
+            es: { flag: 'español.png', text: 'Español ▾' },
+            en: { flag: 'ingles.png', text: 'English ▾' },
+            pt: { flag: 'portugues.png', text: 'Português ▾' }
+        };
+
+        document.getElementById('current-lang').innerHTML = `
+            <img src="${langData[lang].flag}" alt="${lang}" class="lang-flag"> ${langData[lang].text}
+        `;
+
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (translations[lang][key]) {
+                el.textContent = translations[lang][key];
+            }
+        });
+    }
+
+    function showPage(pageId) {
+        document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+
+        document.getElementById(`view-${pageId}`).classList.add('active');
+        const activeNav = document.getElementById(`nav-${pageId}`);
+        if(activeNav) activeNav.classList.add('active');
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ENVÍOS A DISCORD CON COLOR VERDE #2bab32 (DECIMAL: 2861874)
     document.getElementById('partnerForm').addEventListener('submit', async function(e) {
         e.preventDefault();
-
-        const submitBtn = document.getElementById('p_submitBtn');
-        const statusMsg = document.getElementById('p_statusMsg');
-
-        submitBtn.disabled = true;
-        submitBtn.innerText = 'Enviando postulación...';
-        statusMsg.className = 'status-msg';
-        statusMsg.style.display = 'none';
+        const btn = document.getElementById('p_submitBtn');
+        const status = document.getElementById('p_statusMsg');
+        btn.disabled = true;
 
         const payload = {
-            username: "LifeHosting - Partner System",
+            username: "LifeHosting - Partner Bot",
             avatar_url: "https://i.imgur.com/u716CGi.png",
-            embeds: [
-                {
-                    title: "🚀 Nueva Postulación para Partner",
-                    color: 3881718, // Azul
-                    fields: [
-                        { name: "👤 Nombre", value: document.getElementById('p_nombre').value, inline: true },
-                        { name: "🎂 Edad", value: document.getElementById('p_edad').value, inline: true },
-                        { name: "💬 Discord Tag / ID", value: `${document.getElementById('p_discordTag').value} (${document.getElementById('p_discordID').value || 'N/A'})`, inline: true },
-                        { name: "📌 Proyecto", value: document.getElementById('p_proyectoNombre').value, inline: false },
-                        { name: "🔗 Redes", value: document.getElementById('p_redes').value, inline: false },
-                        { name: "📖 Descripción", value: document.getElementById('p_descripcion').value, inline: false },
-                        { name: "🛠️ Servicio", value: document.getElementById('p_planInteres').value, inline: true },
-                        { name: "💰 Financiamiento Total", value: document.querySelector('input[name="p_financiamiento"]:checked')?.value || 'No especificado', inline: true },
-                        { name: "❓ ¿Por qué LifeHosting?", value: document.getElementById('p_razonPartner').value, inline: false },
-                        { name: "📢 Propuesta Marketing", value: document.getElementById('p_propuestaMarketing').value, inline: false },
-                        { name: "ℹ️ Info Adicional", value: document.getElementById('p_infoAdicional').value || 'Ninguna', inline: false }
-                    ],
-                    footer: { text: "LifeHosting Partner System" },
-                    timestamp: new Date().toISOString()
-                }
-            ]
+            embeds: [{
+                title: "🚀 Nueva Postulación: Partner",
+                color: 2861874, // #2bab32 en decimal
+                fields: [
+                    { name: "Nombre", value: document.getElementById('p_nombre').value, inline: true },
+                    { name: "Edad", value: document.getElementById('p_edad').value, inline: true },
+                    { name: "Discord ID / User", value: `${document.getElementById('p_discordTag').value} (${document.getElementById('p_discordID').value || 'N/A'})`, inline: true },
+                    { name: "Proyecto", value: document.getElementById('p_proyectoNombre').value },
+                    { name: "Redes", value: document.getElementById('p_redes').value },
+                    { name: "Descripción", value: document.getElementById('p_descripcion').value },
+                    { name: "Servicio", value: document.getElementById('p_planInteres').value, inline: true }
+                ],
+                timestamp: new Date().toISOString()
+            }]
         };
 
-        sendToDiscord(PARTNER_WEBHOOK_URL, payload, submitBtn, statusMsg, 'partnerForm', 'Enviar Aplicación para Partner');
+        await sendForm(payload, btn, status, 'partnerForm', translations[currentLang].btn_submit_partner);
     });
 
-    // FORMULARIO STAFF
     document.getElementById('staffForm').addEventListener('submit', async function(e) {
         e.preventDefault();
-
-        const submitBtn = document.getElementById('s_submitBtn');
-        const statusMsg = document.getElementById('s_statusMsg');
-
-        submitBtn.disabled = true;
-        submitBtn.innerText = 'Enviando postulación...';
-        statusMsg.className = 'status-msg';
-        statusMsg.style.display = 'none';
+        const btn = document.getElementById('s_submitBtn');
+        const status = document.getElementById('s_statusMsg');
+        btn.disabled = true;
 
         const payload = {
-            username: "LifeHosting - Staff System",
+            username: "LifeHosting - Staff Bot",
             avatar_url: "https://i.imgur.com/u716CGi.png",
-            embeds: [
-                {
-                    title: "🛡️ Nueva Postulación para Staff",
-                    color: 15105570, // Dorado/Naranja
-                    fields: [
-                        { name: "👤 Nombre Real", value: document.getElementById('s_nombre').value, inline: true },
-                        { name: "🎂 Edad", value: document.getElementById('s_edad').value, inline: true },
-                        { name: "💬 Discord Tag", value: document.getElementById('s_discordTag').value, inline: true },
-                        { name: "🌍 País / Zona Horaria", value: document.getElementById('s_pais').value, inline: true },
-                        { name: "🛠️ Rol de Interés", value: document.getElementById('s_rango').value, inline: true },
-                        { name: "⏰ Tiempo Disponible", value: document.getElementById('s_tiempo').value, inline: true },
-                        { name: "📜 Experiencia Previa", value: document.getElementById('s_experiencia').value, inline: false },
-                        { name: "💡 Motivación", value: document.getElementById('s_motivacion').value, inline: false },
-                        { name: "🧩 Resolución de Conflictos", value: document.getElementById('s_situacion').value, inline: false }
-                    ],
-                    footer: { text: "LifeHosting Staff System" },
-                    timestamp: new Date().toISOString()
-                }
-            ]
+            embeds: [{
+                title: "🛡️ Nueva Postulación: Staff",
+                color: 2861874, // #2bab32 en decimal
+                fields: [
+                    { name: "Nombre", value: document.getElementById('s_nombre').value, inline: true },
+                    { name: "Edad", value: document.getElementById('s_edad').value, inline: true },
+                    { name: "Discord ID", value: document.getElementById('s_discordTag').value, inline: true },
+                    { name: "País/Zona", value: document.getElementById('s_pais').value, inline: true },
+                    { name: "Puesto", value: document.getElementById('s_rango').value, inline: true },
+                    { name: "Disponibilidad", value: document.getElementById('s_tiempo').value, inline: true },
+                    { name: "Experiencia", value: document.getElementById('s_experiencia').value },
+                    { name: "Motivación", value: document.getElementById('s_motivacion').value }
+                ],
+                timestamp: new Date().toISOString()
+            }]
         };
 
-        sendToDiscord(STAFF_WEBHOOK_URL, payload, submitBtn, statusMsg, 'staffForm', 'Enviar Aplicación para Staff');
+        await sendForm(payload, btn, status, 'staffForm', translations[currentLang].btn_submit_staff);
     });
 
-    // FUNCIÓN DE ENVÍO COMÚN
-    async function sendToDiscord(url, payload, button, statusElement, formId, originalBtnText) {
+    async function sendForm(payload, btn, status, formId, btnText) {
         try {
-            const response = await fetch(url, {
+            const res = await fetch(DISCORD_WEBHOOK_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
 
-            if (response.ok || response.status === 204) {
-                statusElement.textContent = '¡Tu postulación ha sido enviada con éxito! El equipo la revisará pronto.';
-                statusElement.classList.add('success');
+            if (res.ok || res.status === 204) {
+                status.textContent = translations[currentLang].msg_success;
+                status.className = 'status-msg success';
                 document.getElementById(formId).reset();
             } else {
-                throw new Error('Error de envío');
+                throw new Error();
             }
-        } catch (error) {
-            console.error(error);
-            statusElement.textContent = 'Hubo un error al enviar el formulario. Verifica la conexión o la URL del Webhook.';
-            statusElement.classList.add('error');
+        } catch {
+            status.textContent = translations[currentLang].msg_error;
+            status.className = 'status-msg error';
         } finally {
-            button.disabled = false;
-            button.innerText = originalBtnText;
+            btn.disabled = false;
+            btn.innerText = btnText;
         }
     }
 </script>
-
 </body>
 </html>
